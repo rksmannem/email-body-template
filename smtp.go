@@ -1,6 +1,7 @@
 package clients
 
 import (
+	"github.com/email-body-template/config"
 	"net/smtp"
 )
 
@@ -8,9 +9,9 @@ type Smtp struct {
 	Auth smtp.Auth
 }
 
-func NewClient(from, password, host string ) *Smtp {
+func NewClient(smtpCfg config.Smtp) *Smtp {
 	return &Smtp{
 		//Auth: smtp.PlainAuth("", "mannemrks@gmail.com", "January@123", "smtp.gmail.com"),
-		Auth: smtp.PlainAuth("", from, password, host),
+		Auth: smtp.PlainAuth("", smtpCfg.From, smtpCfg.Password, smtpCfg.Host),
 	}
 }

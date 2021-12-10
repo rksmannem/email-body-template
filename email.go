@@ -26,11 +26,12 @@ func NewRequest(to []string, subject, body string) *Request {
 }
 
 // Send ...
-func (r *Request) Send(smtpClient *clients.Smtp) error {
+func (r *Request) Send(smtpClient *clients.Smtp, host, port string) error {
 	mime := "MIME-version: 1.0;\nContent-Type: text/plain; charset=\"UTF-8\";\n\n"
 	subject := "Subject: " + r.Subject + "!\n"
 	msg := []byte(subject + mime + "\n" + r.Body)
-	addr := "smtp.gmail.com:587"
+	//addr := "smtp.gmail.com:587"
+	addr := host + ":" + port
 
 	err := smtp.SendMail(addr, smtpClient.Auth, "mannemrks@gmail.com", r.To, msg)
 	if err != nil {
